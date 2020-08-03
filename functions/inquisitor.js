@@ -2,9 +2,6 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { asyncForEach } = require("./util");
 
-const asyncForEach = 123;
-
-
 exports.exportInquisitorData = functions.https.onCall(async (data, context) => {
   const user = await admin
     .firestore()

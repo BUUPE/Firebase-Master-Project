@@ -11,11 +11,11 @@
     "logs": "firebase functions:log"
   },
   "lint-staged": {
-    "functions/*.js": [
-      "eslint functions"
+    "*.js": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint"
     ],
-    "functions/*.js": [
-      "prettier --write \"*.js\""
+    "*.js": [
+      "npm run format"
     ]
   },
   "husky": {
