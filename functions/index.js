@@ -5,5 +5,5 @@ admin.initializeApp();
 // include our submodules so they'll be deployed
 module.exports = {
   ...require("./website"),
-  ...require("./inquisitor")
-}
+  ...require("./inquisitor"),
+};

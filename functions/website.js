@@ -73,8 +73,9 @@ exports.newUser = functions.https.onCall(async (data, context) => {
       email: data.email,
       password: pass,
       emailVerified: false,
-    }).then(userRecord => {
-	  const actionCodeSettings = {
+    })
+    .then((userRecord) => {
+      const actionCodeSettings = {
         url: "http://upe.bu.edu/login",
       };
       const dataTwo = {
@@ -91,45 +92,58 @@ exports.newUser = functions.https.onCall(async (data, context) => {
         github: data.github,
         linkedin: data.linkedin,
       };
-	  
-	  admin.firestore().collection('users').doc(userRecord.uid).set(dataTwo).then(() => {
-        admin
-          .auth()
-          .generatePasswordResetLink(data.email, actionCodeSettings)
-          .then(async (link) => {
-            const msg = {
-              to: data.email,
-              from: "upe@bu.edu",
-              templateId: functions.config().sendgrid.template.account.creation,
-              dynamic_template_data: {
-                name: data.name,
-                senderEmail: data.email,
-                link: link,
-              },
-            };
 
-            return sgMail
-              .send(msg)
-              .then(() => {
-                return { success: true, msg: "Sent messages!" };
-              })
-              .catch((err) => {
-                console.error(err);
-                throw new functions.https.HttpsError(
-                  "internal",
-                  "Failed to send emails through SendGrid!"
-                );
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-            throw new functions.https.HttpsError("internal", "Failed to create user");
-          });
-	  }).catch(error => {
-		console.log(err);
-        throw new functions.https.HttpsError("internal", "Failed to create user");
-	  })
-	})
+      admin
+        .firestore()
+        .collection("users")
+        .doc(userRecord.uid)
+        .set(dataTwo)
+        .then(() => {
+          admin
+            .auth()
+            .generatePasswordResetLink(data.email, actionCodeSettings)
+            .then(async (link) => {
+              const msg = {
+                to: data.email,
+                from: "upe@bu.edu",
+                templateId: functions.config().sendgrid.template.account
+                  .creation,
+                dynamic_template_data: {
+                  name: data.name,
+                  senderEmail: data.email,
+                  link: link,
+                },
+              };
+
+              return sgMail
+                .send(msg)
+                .then(() => {
+                  return { success: true, msg: "Sent messages!" };
+                })
+                .catch((err) => {
+                  console.error(err);
+                  throw new functions.https.HttpsError(
+                    "internal",
+                    "Failed to send emails through SendGrid!"
+                  );
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              throw new functions.https.HttpsError(
+                "internal",
+                "Failed to create user"
+              );
+            });
+        })
+        .catch((error) => {
+          console.log(err);
+          throw new functions.https.HttpsError(
+            "internal",
+            "Failed to create user"
+          );
+        });
+    })
     .catch((err) => console.error(err));
 });
 
@@ -243,7 +257,6 @@ exports.deleteUser = functions.https.onCall(async (data, context) => {
     .auth()
     .deleteUser(userRecord.uid)
     .then(() => {
-		
       const msg = {
         to: data.email,
         from: "upe@bu.edu",

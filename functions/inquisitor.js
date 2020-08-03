@@ -1,12 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-
-const asyncForEach = async (array, callback) => {
-  for (let index = 0; index < array.length; index++) {
-    // eslint-disable-next-line
-    await callback(array[index], index, array);
-  }
-};
+const { asyncForEach } = require("./util");
 
 exports.exportInquisitorData = functions.https.onCall(async (data, context) => {
   const user = await admin
