@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - name: Install dependencies
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10'
+        run: npm install
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
