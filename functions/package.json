@@ -11,10 +11,10 @@
     "logs": "firebase functions:log"
   },
   "lint-staged": {
-    "functions/*.js": [
+    "*.js": [
       "eslint ."
     ],
-    "functions/*.js": [
+    "*.js": [
       "prettier --write \"*.js\""
     ]
   },
