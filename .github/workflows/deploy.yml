@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: '10'
       - name: Install Dependencies
+        working-directory: ./functions
         run: npm install
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
