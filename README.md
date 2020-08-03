@@ -13,7 +13,7 @@ Direct call functions can be tested using http requests from a service such as P
 **Make sure to always test your functions before deploying!** Also, for this repo, refrain from using `git commit -am`, and instead do your `git add` and `git commit` separately, as this will ensure the pre-commit hooks for linting and formatting run properly. 
 
 ## Deploying Functions
-This repository automatically deploys functions on every successful push to master, however if you need to do it manually you can do so running `npm run deploy` inside `/functions`.
+This repository automatically deploys functions on every successful push to master, however if you need to do it manually you can do so running `npm run deploy` inside `/functions`. Note however that for safety reasons, deleting functions can't happen automatically. If you remove a function and push, the deploy action will fail as it won't delete the removed functions. To fix this, delete them manually with `firebase functions:delete FUNCTION_NAME_HERE --region us-central1`.
 
 ## Monitoring Functions
 Once deployed, you can monitor the use of your functions on the Firebase console. Each invocation of a function will result in several logs both on request and on completion, alongside with any other logs you put into your functions. To access this you can head over to the console by clicking [here](https://console.firebase.google.com/), selection UPE Master, then the Functions tab, and finally Logs.
