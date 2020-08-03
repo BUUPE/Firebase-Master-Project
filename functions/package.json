@@ -11,10 +11,7 @@
     "logs": "firebase functions:log"
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "npm run format"
-    ]
+    "*.js": ["eslint", "prettier --write"]
   },
   "husky": {
     "hooks": {
