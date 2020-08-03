@@ -2,7 +2,7 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint *.js",
     "format": "prettier --write \"*.js\"",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
