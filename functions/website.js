@@ -6,7 +6,6 @@ const cors = require("cors")({ origin: true });
 
 // initialize APIs once for all functions
 sgMail.setApiKey(functions.config().sendgrid.key);
-// add a comment for testing
 
 /*
  * all of the onCall functions should handle errors with https://firebase.google.com/docs/functions/callable#handle_errors
