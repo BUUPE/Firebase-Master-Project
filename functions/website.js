@@ -49,3 +49,17 @@ exports.contactForm = functions.https.onCall(async (data, context) => {
       );
     });
 });
+
+exports.sendEmailTemplate = functions.https.onCall((data, context) => {
+  console.log(context);
+  sgMail
+    .send(data)
+    .then((res) => ({
+      success: true,
+      res,
+    }))
+    .catch((error) => {
+      console.error(error);
+      return error;
+    });
+});
