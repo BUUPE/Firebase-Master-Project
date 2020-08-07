@@ -1,8 +1,5 @@
 const functions = require("firebase-functions");
-const admin = require("firebase-admin");
 const sgMail = require("@sendgrid/mail");
-const generator = require("generate-password");
-const cors = require("cors")({ origin: true });
 
 // initialize APIs once for all functions
 sgMail.setApiKey(functions.config().sendgrid.key);
@@ -47,19 +44,5 @@ exports.contactForm = functions.https.onCall(async (data, context) => {
         "internal",
         "Failed to send emails through SendGrid!"
       );
-    });
-});
-
-exports.sendEmailTemplate = functions.https.onCall((data, context) => {
-  console.log(context);
-  sgMail
-    .send(data)
-    .then((res) => ({
-      success: true,
-      res,
-    }))
-    .catch((error) => {
-      console.error(error);
-      return error;
     });
 });

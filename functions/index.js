@@ -6,4 +6,5 @@ admin.initializeApp();
 module.exports = {
   ...require("./website"),
   ...require("./inquisitor"),
+  ...require("./sendgrid"),
 };
