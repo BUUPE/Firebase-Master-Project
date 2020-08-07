@@ -53,6 +53,12 @@ exports.exportCollection = async (collection) => {
   return collectionObject;
 };
 
+exports.validEmail = (email) => {
+  // eslint-disable-next-line
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
 exports.isAdmin = (context) =>
   context.auth.token.hasOwnProperty("admin") ||
   context.auth.token.hasOwnProperty("eboard");
