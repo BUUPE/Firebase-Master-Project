@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 
 // helper function do a synchronous forEach (wait for each iteration of the loop before starting the next)
-const asyncForEach = async (array, callback) => {
+exports.asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
     // eslint-disable-next-line
     await callback(array[index], index, array);
@@ -9,7 +9,7 @@ const asyncForEach = async (array, callback) => {
 };
 
 // recursive function that takes a collection path and turns it and all documents/subcollections into an object
-const exportCollection = async (collection) => {
+exports.exportCollection = async (collection) => {
   const collectionObject = {};
 
   // get documents refs
@@ -53,7 +53,6 @@ const exportCollection = async (collection) => {
   return collectionObject;
 };
 
-module.exports = {
-  exportCollection,
-  asyncForEach,
-};
+exports.isAdmin = (context) =>
+  context.auth.token.hasOwnProperty("admin") ||
+  context.auth.token.hasOwnProperty("eboard");
