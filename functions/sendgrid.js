@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 const sgMail = require("@sendgrid/mail");
 const { isAdmin, validEmail } = require("./util");
 
@@ -50,3 +51,38 @@ exports.sendApplicationReceipt = functions.https.onCall((data, context) => {
     );
   });
 });
+
+exports.notifyTimeslotsAreOpen = functions.https.onCall(
+  async (data, context) => {
+    if (!isAdmin(context))
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        "You must be an admin to call this function!"
+      );
+    else {
+      const applicants = await admin
+        .firestore()
+        .collection("users")
+        .where("roles.applicant", "==", true)
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) => doc.data()));
+
+      const emails = applicants.map((applicant) => ({
+        to: applicant.email,
+        from: "BU UPE <upe@bu.edu>",
+        templateId: "d-fa081298b5de4a868b6a162a800ad47d",
+        dynamicTemplateData: {
+          firstName: applicant.name.split(" ")[0],
+        },
+      }));
+
+      return sgMail.send(emails).catch((error) => {
+        console.error(error);
+        throw new functions.https.HttpsError(
+          "internal",
+          "Failed to send emails through SendGrid!"
+        );
+      });
+    }
+  }
+);
