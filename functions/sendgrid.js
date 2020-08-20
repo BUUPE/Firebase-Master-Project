@@ -35,7 +35,7 @@ exports.applicantAccepted = functions.https.onCall((data, context) => {
     );
 		
 	const mailData = {
-		to: data.email:
+		to: data.email,
 		from: "BU UPE <upe@bu.edu>",
 		templateId: "d-a58eeaa051d743a2a77a4385cdaa90e6",
 		dynamicTemplateData: {
@@ -70,7 +70,7 @@ exports.applicantDenied = functions.https.onCall((data, context) => {
     );
 		
 	const mailData = {
-		to: data.email:
+		to: data.email,
 		from: "BU UPE <upe@bu.edu>",
 		templateId: "d-ae7de586f35849ad9e1e67c29ca47858",
 		dynamicTemplateData: {
