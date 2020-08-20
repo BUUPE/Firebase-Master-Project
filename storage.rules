@@ -1,0 +1,30 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+	
+		match /profiles {
+			match /{allPaths=**} {
+			 allow read: if true;
+       allow write: if request.resource.size < 5 * 1024 * 1024
+                    && request.resource.contentType.matches('image/.*')
+                    && imageId.size() < 32
+										&& request.auth != null;
+     }
+		}
+		
+    match /inquisitor/files {
+			match /{allPaths=**} {
+				allow read: if true;
+				allow write: if request.resource.size < 16 * 1024 * 1024
+										 && request.auth != null;
+			}
+		}
+		
+		match /inquisitor/backups {
+			match /{allPaths=**} {
+				allow read, write: if false;
+			}
+		}
+		
+  }
+}
