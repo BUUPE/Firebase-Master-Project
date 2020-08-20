@@ -22,6 +22,72 @@ exports.sendEmailTemplate = functions.https.onCall((data, context) => {
     });
 });
 
+exports.applicantAccepted = functions.https.onCall((data, context) => {
+  if (!validEmail(data.email))
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "email" field must be a valid email!'
+    );
+  if (typeof data.name !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "name" field must be a string!'
+    );
+		
+	const mailData = {
+		to: data.email:
+		from: "BU UPE <upe@bu.edu>",
+		templateId: "d-a58eeaa051d743a2a77a4385cdaa90e6",
+		dynamicTemplateData: {
+      name: data.name,
+    },
+	}
+		
+  return sgMail.send(mailData).catch((error) => {
+    console.error(error);
+    throw new functions.https.HttpsError(
+      "internal",
+      "Failed to send email through SendGrid!"
+    );
+  });
+});
+
+exports.applicantDenied = functions.https.onCall((data, context) => {
+  if (!validEmail(data.email))
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "email" field must be a valid email!'
+    );
+  if (typeof data.name !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "name" field must be a string!'
+    );
+  if (typeof data.feedback !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "feedback" field must be a string!'
+    );
+		
+	const mailData = {
+		to: data.email:
+		from: "BU UPE <upe@bu.edu>",
+		templateId: "d-ae7de586f35849ad9e1e67c29ca47858",
+		dynamicTemplateData: {
+      name: data.name,
+			feedback: data.feedback,
+    },
+	}
+		
+  return sgMail.send(mailData).catch((error) => {
+    console.error(error);
+    throw new functions.https.HttpsError(
+      "internal",
+      "Failed to send email through SendGrid!"
+    );
+  });
+});
+
 exports.sendApplicationReceipt = functions.https.onCall((data, context) => {
   if (!validEmail(data.email))
     throw new functions.https.HttpsError(
