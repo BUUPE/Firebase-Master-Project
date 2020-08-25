@@ -5,11 +5,55 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "deliberation.acceptedUPE",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "deliberation.applicantAccepted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "deliberation.complete",
           "order": "ASCENDING"
         },
         {
           "fieldPath": "deliberation.voted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deliberation.secondRound.complete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "deliberation.secondRound.voted",
           "order": "ASCENDING"
         },
         {
