@@ -5,18 +5,32 @@ service firebase.storage {
 		match /profiles {
 			match /{allPaths=**} {
 			 allow read: if true;
-       allow write: if request.resource.size < 5 * 1024 * 1024
-                    && request.resource.contentType.matches('image/.*')
-                    && imageId.size() < 32
-										&& request.auth != null;
+       allow write: if (
+                         request.resource == null
+                         || (
+                              request.resource.size < 5 * 1024 * 1024
+                    	        && request.resource.contentType.matches('image/.*')
+                             )
+                        )
+											&& request.auth != null;
      }
 		}
 		
+    match /inquisitor/Questions {
+			match /{allPaths=**} {
+				allow read: if true;
+				allow write: if (request.resource == null 
+                     	|| request.resource.size < 16 * 1024 * 1024)
+										 	&& request.auth != null;
+			}
+		}
+    
     match /inquisitor/files {
 			match /{allPaths=**} {
 				allow read: if true;
-				allow write: if request.resource.size < 16 * 1024 * 1024
-										 && request.auth != null;
+				allow write: if (request.resource == null 
+                     	|| request.resource.size < 16 * 1024 * 1024)
+										 	&& request.auth != null;
 			}
 		}
 		
