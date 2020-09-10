@@ -1,0 +1,217 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deliberation.acceptedUPE",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "deliberation.applicantAccepted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deliberation.complete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "deliberation.voted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deliberation.secondRound.complete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "deliberation.secondRound.voted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deliberation.voted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "applications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "interview.interviewed",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "interview.level",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "applicant.name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "events",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "index",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "title",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "email",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roles.alum",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "roles.upemember",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roles.eboard",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "roles.upemember",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "upe.positionRank",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roles.nonmember",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roles.upemember",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roles.upemember",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "upe.class",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

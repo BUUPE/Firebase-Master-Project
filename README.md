@@ -1,5 +1,5 @@
-# UPE Firebase Functions
-This repository is home to all the Firebase Cloud Functions used by the different UPE applications (underneath the UPE Master Firebase project). Rather than adding Firebase Functions boilerplate to every app the needs to define its own functions, they're maintained here in one place.
+# UPE Firebase Master Project
+This repository is home to all of the Firebase Config Files for Storage & Firestore, alongside with all the Firebase Cloud Functions used by the different UPE applications. Rather than adding Firebase boilerplate to every app the needs to define its own functions, Storage or Firestore, they're maintained here in one place.
 
 ## Installation
 The only prerequisite is [Node.Js](https://nodejs.org/en/). If you have that, just clone the repo, `cd` into the `functions` folder, and run `npm install`. If you haven't done so before, you'll also need to run `firebase login`, which will prompt you to login to a Google account that has permissions to use and modify the UPE Master Firebase project.
