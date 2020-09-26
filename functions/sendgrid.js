@@ -183,7 +183,7 @@ exports.applicantTimeslotsOpen = functions.https.onCall(
   }
 );
 
-exports.applicantTimeslotsOpen = functions.https.onCall(
+exports.interviewerTimeslotsOpen = functions.https.onCall(
   async (data, context) => {
     if (!isAdmin(context))
       throw new functions.https.HttpsError(
