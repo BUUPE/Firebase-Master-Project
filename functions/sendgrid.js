@@ -52,42 +52,6 @@ exports.applicantFinalAccepted = functions.https.onCall((data, context) => {
   });
 });
 
-exports.applicantFinalDenied = functions.https.onCall((data, context) => {
-  if (!validEmail(data.email))
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      'The "email" field must be a valid email!'
-    );
-  if (typeof data.name !== "string")
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      'The "name" field must be a string!'
-    );
-  if (typeof data.feedback !== "string")
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      'The "feedback" field must be a string!'
-    );
-
-  const mailData = {
-    to: data.email,
-    from: "BU UPE <upe@bu.edu>",
-    templateId: "d-09758eaee49d466997a729d28d5fcfdc",
-    dynamicTemplateData: {
-      name: data.name,
-      feedback: data.feedback,
-    },
-  };
-
-  return sgMail.send(mailData).catch((error) => {
-    console.error(error);
-    throw new functions.https.HttpsError(
-      "internal",
-      "Failed to send email through SendGrid!"
-    );
-  });
-});
-
 exports.applicantAccepted = functions.https.onCall((data, context) => {
   if (!validEmail(data.email))
     throw new functions.https.HttpsError(
@@ -184,7 +148,7 @@ exports.sendApplicationReceipt = functions.https.onCall((data, context) => {
   });
 });
 
-exports.notifyTimeslotsAreOpen = functions.https.onCall(
+exports.applicantTimeslotsOpen = functions.https.onCall(
   async (data, context) => {
     if (!isAdmin(context))
       throw new functions.https.HttpsError(
@@ -219,7 +183,7 @@ exports.notifyTimeslotsAreOpen = functions.https.onCall(
   }
 );
 
-exports.notifyTimeslotsAreClosed = functions.https.onCall(
+exports.applicantTimeslotsOpen = functions.https.onCall(
   async (data, context) => {
     if (!isAdmin(context))
       throw new functions.https.HttpsError(
@@ -227,19 +191,19 @@ exports.notifyTimeslotsAreClosed = functions.https.onCall(
         "You must be an admin to call this function!"
       );
     else {
-      const applicants = await admin
+      const interviewers = await admin
         .firestore()
         .collection("users")
-        .where("roles.applicant", "==", true)
+        .where("roles.recruitmentteam", "==", true)
         .get()
         .then((snapshot) => snapshot.docs.map((doc) => doc.data()));
 
-      const emails = applicants.map((applicant) => ({
-        to: applicant.email,
+      const emails = interviewers.map((interviewer) => ({
+        to: interviewer.email,
         from: "BU UPE <upe@bu.edu>",
-        templateId: "d-385e25b7779748d8b4d3ab03f03cb15b",
+        templateId: "d-f4599164dc254b4e8eec5edc66555a01",
         dynamicTemplateData: {
-          firstName: applicant.name.split(" ")[0],
+          firstName: interviewer.name.split(" ")[0],
         },
       }));
 
@@ -253,3 +217,45 @@ exports.notifyTimeslotsAreClosed = functions.https.onCall(
     }
   }
 );
+
+exports.timeslotSelected = functions.https.onCall((data, context) => {
+  if (!validEmail(data.email))
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "email" field must be a valid email!'
+    );
+  if (typeof data.firstName !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "firstName" field must be a string!'
+    );
+  if (typeof data.time !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "time" field must be a string!'
+    );
+  if (typeof data.day !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "day" field must be a string!'
+    );
+
+  const receipt = {
+    to: data.email,
+    from: "BU UPE <upe@bu.edu>",
+    templateId: "d-385e25b7779748d8b4d3ab03f03cb15b",
+    dynamicTemplateData: {
+      firstName: data.firstName,
+      time: data.time,
+      day: data.day,
+    },
+  };
+
+  return sgMail.send(receipt).catch((error) => {
+    console.error(error);
+    throw new functions.https.HttpsError(
+      "internal",
+      "Failed to send email through SendGrid!"
+    );
+  });
+});
