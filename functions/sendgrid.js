@@ -259,3 +259,32 @@ exports.timeslotSelected = functions.https.onCall((data, context) => {
     );
   });
 });
+exports.timeslotUnselected = functions.https.onCall((data, context) => {
+  if (!validEmail(data.email))
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "email" field must be a valid email!'
+    );
+  if (typeof data.firstName !== "string")
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      'The "firstName" field must be a string!'
+    );
+
+  const receipt = {
+    to: data.email,
+    from: "BU UPE <upe@bu.edu>",
+    templateId: "d-3ad6c20e9cc946c5ad767729b097a75c",
+    dynamicTemplateData: {
+      firstName: data.firstName,
+    },
+  };
+
+  return sgMail.send(receipt).catch((error) => {
+    console.error(error);
+    throw new functions.https.HttpsError(
+      "internal",
+      "Failed to send email through SendGrid!"
+    );
+  });
+});
