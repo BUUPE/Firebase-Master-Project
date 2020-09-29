@@ -234,11 +234,6 @@ exports.timeslotSelected = functions.https.onCall((data, context) => {
       "invalid-argument",
       'The "time" field must be a string!'
     );
-  if (typeof data.day !== "string")
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      'The "day" field must be a string!'
-    );
 
   const receipt = {
     to: data.email,
@@ -247,7 +242,6 @@ exports.timeslotSelected = functions.https.onCall((data, context) => {
     dynamicTemplateData: {
       firstName: data.firstName,
       time: data.time,
-      day: data.day,
     },
   };
 
