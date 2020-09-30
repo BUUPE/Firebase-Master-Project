@@ -44,7 +44,7 @@ service cloud.firestore {
       
       
       match /data/timeslots/{timeslot} {
-        allow write: if request.resource.data.time is number;
+        allow write: if request.resource == null || request.resource.data.time is number;
       }
     }
     
