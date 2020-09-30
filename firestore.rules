@@ -6,6 +6,10 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/users/$(userId)).data.roles.eboard == true;
     }
     
+    function isRecruitment(userId) {
+      return get(/databases/$(database)/documents/users/$(userId)).data.roles.recruitmentteam == true;
+    }
+    
     function isAdmin(userId) {
     	return get(/databases/$(database)/documents/users/$(userId)).data.roles.admin == true;
     }
@@ -39,7 +43,7 @@ service cloud.firestore {
       }
       
       match /data/applications/{applicationId} {
-      	allow write: if isAdmin(request.auth.uid) || isEboard(request.auth.uid)|| (request.auth.uid == applicationId);
+      	allow write: if isRecruitment(request.auth.uid) || isAdmin(request.auth.uid) || isEboard(request.auth.uid)|| (request.auth.uid == applicationId);
       }
       
       
