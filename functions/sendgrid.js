@@ -282,3 +282,39 @@ exports.timeslotUnselected = functions.https.onCall((data, context) => {
     );
   });
 });
+
+exports.interviewerTimeslotsOpen = functions.https.onCall(
+  async (data, context) => {
+    if (!isAdmin(context))
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        "You must be an admin to call this function!"
+      );
+    else {
+      const interviewers = await admin
+        .firestore()
+        .collection("users")
+        .where("roles.upemember", "==", false)
+        .where("roles.applicant", "==", false)
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) => doc.data()));
+
+      const emails = interviewers.map((interviewer) => ({
+        to: interviewer.email,
+        from: "BU UPE <upe@bu.edu>",
+        templateId: "d-f4599164dc254b4e8eec5edc66555a01",
+        dynamicTemplateData: {
+          firstName: interviewer.name.split(" ")[0],
+        },
+      }));
+
+      return sgMail.send(emails).catch((error) => {
+        console.error(error);
+        throw new functions.https.HttpsError(
+          "internal",
+          "Failed to send emails through SendGrid!"
+        );
+      });
+    }
+  }
+);
