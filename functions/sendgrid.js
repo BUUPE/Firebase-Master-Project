@@ -41,6 +41,9 @@ exports.applicantFinalAccepted = functions.https.onCall((data, context) => {
     dynamicTemplateData: {
       name: data.name,
     },
+    asm: {
+      group_id: 22084
+    },
   };
 
   return sgMail.send(mailData).catch((error) => {
@@ -70,6 +73,9 @@ exports.applicantAccepted = functions.https.onCall((data, context) => {
     templateId: "d-a58eeaa051d743a2a77a4385cdaa90e6",
     dynamicTemplateData: {
       name: data.name,
+    },
+    asm: {
+      group_id: 22084
     },
   };
 
@@ -107,6 +113,9 @@ exports.applicantDenied = functions.https.onCall((data, context) => {
       name: data.name,
       feedback: data.feedback,
     },
+    asm: {
+      group_id: 22084
+    },
   };
 
   return sgMail.send(mailData).catch((error) => {
@@ -136,6 +145,9 @@ exports.sendApplicationReceipt = functions.https.onCall((data, context) => {
     templateId: "d-c33887e2f16542b3bf6587314fe26539",
     dynamicTemplateData: {
       firstName: data.firstName,
+    },
+    asm: {
+      group_id: 22084
     },
   };
 
@@ -169,6 +181,9 @@ exports.applicantTimeslotsOpen = functions.https.onCall(
         templateId: "d-fa081298b5de4a868b6a162a800ad47d",
         dynamicTemplateData: {
           firstName: applicant.name.split(" ")[0],
+        },
+        asm: {
+          group_id: 22084
         },
       }));
 
@@ -204,6 +219,9 @@ exports.interviewerTimeslotsOpen = functions.https.onCall(
         templateId: "d-f4599164dc254b4e8eec5edc66555a01",
         dynamicTemplateData: {
           firstName: interviewer.name.split(" ")[0],
+        },
+        asm: {
+          group_id: 22084
         },
       }));
 
@@ -243,6 +261,9 @@ exports.timeslotSelected = functions.https.onCall((data, context) => {
       firstName: data.firstName,
       time: data.time,
     },
+    asm: {
+      group_id: 22084
+    },
   };
 
   return sgMail.send(receipt).catch((error) => {
@@ -271,6 +292,9 @@ exports.timeslotUnselected = functions.https.onCall((data, context) => {
     templateId: "d-3ad6c20e9cc946c5ad767729b097a75c",
     dynamicTemplateData: {
       firstName: data.firstName,
+    },
+    asm: {
+      group_id: 22084
     },
   };
 
@@ -305,6 +329,9 @@ exports.interviewerTimeslotsOpen = functions.https.onCall(
         templateId: "d-f4599164dc254b4e8eec5edc66555a01",
         dynamicTemplateData: {
           firstName: interviewer.name.split(" ")[0],
+        },
+        asm: {
+          group_id: 22084
         },
       }));
 

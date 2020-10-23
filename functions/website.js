@@ -22,6 +22,9 @@ exports.contactForm = functions.https.onCall(async (data, context) => {
       subject: data.subject,
       text: data.text,
     },
+    asm: {
+      group_id: 22084
+    },
   };
 
   // receipt so sender knows their message got through
@@ -32,6 +35,9 @@ exports.contactForm = functions.https.onCall(async (data, context) => {
     dynamic_template_data: {
       name: data.name,
       subject: data.subject,
+    },
+    asm: {
+      group_id: 22084
     },
   };
 
